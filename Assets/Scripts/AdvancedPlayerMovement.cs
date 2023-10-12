@@ -51,9 +51,15 @@ if(horizontalInput != 0 && grounded)
 if((horizontalInput>0&& !facingRight)|| (horizontalInput<0 && facingRight)){
     Flip();
 }
-if(Input.GetKey(KeyCode.Space)&&grounded)
+if(Input.GetKeyDown(KeyCode.Space)&&grounded)
 {
     Jump();
+    canDoubleJump = true;
+}
+else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
+{
+    Jump();
+    canDoubleJump = false;
 }
 
     }
