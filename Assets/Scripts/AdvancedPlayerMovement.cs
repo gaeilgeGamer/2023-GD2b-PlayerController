@@ -47,6 +47,24 @@ if(horizontalInput != 0 && grounded)
 {
     PlaySound(footstepSound);
 }
+if(Input.GetKeyDown(KeyCode.LeftShift)&& !isDashing)
+{
+    StartCoroutine(Dash());
+}
+
+if(Input.GetKeyDown(KeyCode.LeftControl) && grounded)
+{
+    if(!isCrouching)
+    {
+        transform.localScale = new Vector3(transform.localScale.x, crouchHeight, transform.localScale.z);
+        isCrouching = true;
+    }
+    else if (isCrouching)
+    {
+        transform.localScale = new Vector3(transform.localScale.x, 1f, transform.localScale.z);
+        isCrouching = false; 
+    }
+}
 
 if((horizontalInput>0&& !facingRight)|| (horizontalInput<0 && facingRight)){
     Flip();
@@ -79,5 +97,15 @@ else if(Input.GetKeyDown(KeyCode.Space) && canDoubleJump)
         anim.SetTrigger("jump");
         grounded = false; 
         PlaySound(jumpSound);
+    }
+    IEnumerator Dash()
+    {
+        PlaySound(dashSound);
+        float originalSpeed = speed; 
+        speed = dashSpeed; 
+        isDashing = true; 
+        yield return new WaitForSeconds(0.2f);
+        speed = originalSpeed; 
+        isDashing = false; 
     }
 }
