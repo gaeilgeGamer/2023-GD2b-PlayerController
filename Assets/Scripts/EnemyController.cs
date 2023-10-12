@@ -72,7 +72,11 @@ public class EnemyController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+        AdvancedPlayerMovement player =  collision.gameObject.GetComponent<AdvancedPlayerMovement>();
+        if(player != null)
+        {
+            Debug.Log("Player took damage from enemy!");
+        }
     }
 
 
