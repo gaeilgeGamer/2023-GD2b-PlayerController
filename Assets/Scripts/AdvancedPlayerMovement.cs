@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class AdvancedPlayerMovement : MonoBehaviour
 {
     public float speed = 10f;
@@ -18,7 +20,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
 
     private Rigidbody2D body; 
     private Animator anim; 
-    private AudioSource audioSource; 
+    private AudioSource audioPlayer; 
     private bool grounded; 
     private bool canDoubleJump = false; 
     private bool isDashing = false; 
@@ -29,7 +31,7 @@ public class AdvancedPlayerMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>(); 
         anim = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>(); 
+        audioPlayer = GetComponent<AudioSource>(); 
     }
 
     // Update is called once per frame
@@ -41,6 +43,11 @@ public class AdvancedPlayerMovement : MonoBehaviour
     body.velocity = new Vector2(horizontalInput * speed, body.velocity.y);
     anim.SetBool("walk", horizontalInput !=0);
 
+if(horizontalInput != 0 && grounded)
+{
+    PlaySound(footstepSound);
+}
+
 if((horizontalInput>0&& !facingRight)|| (horizontalInput<0 && facingRight)){
     Flip();
 }
@@ -49,6 +56,11 @@ if(Input.GetKey(KeyCode.Space)&&grounded)
     Jump();
 }
 
+    }
+    private void PlaySound(AudioClip clip)
+    {
+        audioPlayer.clip = clip;
+        audioPlayer.Play();
     }
     private void Flip(){
         Vector3 currentScale = gameObject.transform.localScale; 
@@ -60,5 +72,6 @@ if(Input.GetKey(KeyCode.Space)&&grounded)
         body.velocity = new Vector2(body.velocity.x, jumpHeight);
         anim.SetTrigger("jump");
         grounded = false; 
+        PlaySound(jumpSound);
     }
 }
