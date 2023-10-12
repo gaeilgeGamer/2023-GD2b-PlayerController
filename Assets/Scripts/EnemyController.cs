@@ -36,6 +36,7 @@ public class EnemyController : MonoBehaviour
     }
     void Move()
     {
+        //this creates a ground check to know what direction the player is facing and then to turn him I borrowed from this tutorial to do it 
         Vector2 groundCheckPosition = movingRight ?
             new Vector2(transform.position.x + 0.5f, transform.position.y):
             new Vector2(transform.position.x - 0.5f, transform.position.y);
@@ -46,10 +47,32 @@ public class EnemyController : MonoBehaviour
     {
         movingRight =!movingRight;
     }
+    
     enemyRigidBody.velocity = movingRight ?
             new Vector2(moveSpeed, enemyRigidBody.velocity.y):
             new Vector2(-moveSpeed, enemyRigidBody.velocity.y);
 
+    }
+    public void TakeDamage(int damageAmount)
+    {
+        currentHealth -= damageAmount;
+        if(currentHealth <=0)
+        {
+            Die();
+        }
+    }
+    public void Die()
+    {
+        if(spawner !=null)
+        {
+            spawner.EnemyDied();
+        }
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
     }
 
 
