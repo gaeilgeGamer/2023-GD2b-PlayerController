@@ -16,12 +16,17 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private int damage = 1; 
 
     private Rigidbody2D enemyRigidBody; 
-    //private EnemySpawner spawner; 
+    private EnemySpawner spawner; 
     // Start is called before the first frame update
     void Awake()
     {
         enemyRigidBody = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth; 
+    }
+
+    public void Initialize(EnemySpawner spawnerReference)
+    {
+        spawner = spawnerReference;
     }
 
     // Update is called once per frame
