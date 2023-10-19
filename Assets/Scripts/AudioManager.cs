@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -19,7 +16,7 @@ public class AudioManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if(instance = null)
+        if(instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
