@@ -50,8 +50,22 @@ public class RefactoredAdvancedPlayerMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Update()
+    {
+        HandleInput();
+    }
     void FixedUpdate()
     {
+        grounded = CheckIfGrounded();
+        HandleMovement();
+    }
+
+    private void HandleInput()
+    {
+        HandleJump();
+        HandleDash();
+        HandleCrouch();
+        HandleAttack();
     }
     private void PlaySound(AudioClip clip)
     {
@@ -70,7 +84,10 @@ public class RefactoredAdvancedPlayerMovement : MonoBehaviour
         grounded = false; 
         PlaySound(jumpSound);
     }
-
+    private bool CheckIfGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheckPoint.position, groundCheckRadius, whatIsGround);
+    }
     private void HandleCrouch()
     {
     if(Input.GetKeyDown(KeyCode.LeftControl) && grounded)
