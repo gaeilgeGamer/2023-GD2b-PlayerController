@@ -32,7 +32,7 @@ public class EnemyBoundsCheck : MonoBehaviour
             return;
         }
 
-        // Check if enemy has moved off the screen
+        // Check if enemy has moved off the screen i used a tutorial from ...... link  it works by finding the transform point of the enemy and then adding 5f and then comparing it to the camera 
         Vector3 enemyScreenPos = mainCamera.WorldToViewportPoint(transform.position);
         if (enemyScreenPos.x < -screenBuffer || enemyScreenPos.x > 1 + screenBuffer ||
             enemyScreenPos.y < -screenBuffer || enemyScreenPos.y > 1 + screenBuffer)
