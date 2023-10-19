@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     public void PauseGame()
     {
         isPaused = true;
-        Time.timeScale = 0f;
+        Time.timeScale = 1f;
         //this is where you'd put your pause menu 
     }
     public void ResumeGame()
